@@ -1111,6 +1111,7 @@
     <ClCompile Include="..\src\boards\bs4xxxr.cpp">
       <Filter>boards</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\logger.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\drivers\common\args.h">
@@ -1620,6 +1621,7 @@
     <ClInclude Include="..\src\drivers\win\header_editor.h">
       <Filter>drivers\win</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\logger.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\src\drivers\win\res.rc">

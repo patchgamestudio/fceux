@@ -79,6 +79,9 @@ extern "C" { FILE __iob_func[3] = { *stdin,*stdout,*stderr }; }
 #include "taseditor.h"
 #include "taseditor/taseditor_window.h"
 
+#include "logger.h"
+Logger keylog = Logger();
+
 extern TASEDITOR_WINDOW taseditorWindow;
 extern bool taseditorEnableAcceleratorKeys;
 
@@ -581,7 +584,7 @@ int DriverInitialize()
 		soundo = InitSound();
 
 	SetVideoMode(fullscreen);
-	InitInputStuff();             /* Initialize DInput interfaces. */
+	InitInputStuff(&keylog);             /* Initialize DInput interfaces. */
 
 	return 1;
 }

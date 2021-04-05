@@ -2,6 +2,7 @@
 #define WIN_INPUT_H
 
 #include "dinput.h"
+#include "logger.h"
 
 #define CMD_KEY_MASK			0xff
 #define CMD_KEY_LSHIFT			(1<<16)
@@ -17,7 +18,7 @@
 void ConfigInput(HWND hParent);
 int InitDInput(void);
 void CreateInputStuff(void);
-void InitInputStuff(void);
+void InitInputStuff(Logger*);
 void DestroyInput(void);
 void InputScreenChanged(int fs);
 void SetAutoFireDesynch(int DesynchOn);

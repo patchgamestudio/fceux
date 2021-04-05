@@ -716,6 +716,7 @@
     <ClCompile Include="..\src\input\zapper.cpp" />
     <ClCompile Include="..\src\input\lcdcompzapper.cpp" />
     <ClCompile Include="..\src\boards\emu2413.c" />
+    <ClCompile Include="..\src\logger.cpp" />
     <ClCompile Include="..\src\utils\ConvertUTF.c" />
     <ClCompile Include="..\src\utils\crc32.cpp" />
     <ClCompile Include="..\src\utils\endian.cpp" />
@@ -1107,6 +1108,7 @@
     <ClInclude Include="..\src\input\fkb.h" />
     <ClInclude Include="..\src\input\share.h" />
     <ClInclude Include="..\src\input\suborkb.h" />
+    <ClInclude Include="..\src\logger.h" />
     <ClInclude Include="..\src\movie.h" />
     <ClInclude Include="..\src\netplay.h" />
     <ClInclude Include="..\src\nsf.h" />

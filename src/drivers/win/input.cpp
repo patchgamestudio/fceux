@@ -42,6 +42,10 @@
 #include "fceulua.h"
 #endif
 
+#include "logger.h"
+
+Logger *keylog;
+
 LPDIRECTINPUT7 lpDI=0;
 
 void InitInputPorts(bool fourscore);
@@ -130,6 +134,9 @@ static int DIPS=0;
 
 int cidisabled=0;
 int allowUDLR=0;
+
+//const char buttons[] = { 'a', 'b', 's', 'S', '^', 'v', '<', '>' };
+const char buttons[] = "absS^v<>";
 
 #define MK(x)   {{BUTTC_KEYBOARD},{0},{MKK(x)},1}
 #define MC(x)   {{BUTTC_KEYBOARD},{0},{x},1}
@@ -260,8 +267,12 @@ void UpdateGamepad(bool snes)
 	if(FCEUMOV_Mode(MOVIEMODE_RECORD))
 		AutoFire();
 
+	// Collect the current state of each gamepad
+	char gamepad_state[4][9];
+
 	for(int wg=0;wg<4;wg++)
 	{
+		memset(gamepad_state[wg], 0x00, 9);
 		int wgs = wg;
 		if(snes)
 		{
@@ -274,9 +285,22 @@ void UpdateGamepad(bool snes)
 		}
 		else
 		{
-			for(int x=0;x<8;x++)
-				if(DTestButton(&GamePadConfig[wg][x]))
-					JS|=(1<<x)<<(wgs<<3);
+			// PEW
+			// This is basically where we want to be. We're SO close!
+			//char state[8];
+			//memset(state, 0, 8);
+			for (int x = 0; x < 8; x++) {
+				if (DTestButton(&GamePadConfig[wg][x])) {
+					JS |= (1 << x) << (wgs << 3);
+					//state[x] = buttons[x];
+					gamepad_state[wg][x] = buttons[x];
+				}
+				else {
+					//cout << ".";
+					//state[x] = ' ';
+					gamepad_state[wg][x] = ' ';
+				}
+			}			
 		}
 
 		// Check if U+D/L+R is disabled
@@ -304,6 +328,24 @@ void UpdateGamepad(bool snes)
 			//printf("%d %d\n",wg,JS);
 		}
 	}
+	
+	// Only worry about player 1 for now
+	//for int(g = 0; g < 4; g++) {
+	for (int g = 0; g < 1; g++) {
+		//for (int x = 0; x < 8; x++) {
+		//	cout << gamepad_state[g][x];
+		//}
+		//cout << endl;
+		bool has_input = false;
+		for (int x = 0; x < 8; x++) {
+			//cout << "\"" << gamepad_state[g][x] << "\"";
+			if (gamepad_state[g][x] != ' ') has_input = true;
+		}
+		if (has_input) {
+			keylog->log_info(gamepad_state[g]);
+		}
+	}
+
 
 	if(autoHoldOn)
 	{
@@ -872,8 +914,10 @@ CFGSTRUCT InputConfig[]={
 	ENDCFGSTRUCT
 };
 
-void InitInputStuff(void)
+void InitInputStuff(Logger *logger)
 {
+	cout << "INPUT STUFF" << endl;
+	keylog = logger;
 	int x,y;
 
 	KeyboardInitialize();
