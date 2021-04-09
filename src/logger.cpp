@@ -36,7 +36,7 @@ Logger::Logger() {
 	char second[2];
 	sprintf(second, "%02d", isecond);
 
-	sprintf(buffer, "%s%s%s-%s%s%s.txt", year, month, day, hour, minute, second);
+	sprintf(buffer, "fceux-%s%s%s-%s%s%s.txt", year, month, day, hour, minute, second);
 
 	logfile.open(buffer);
 	//logfile.precision(16);
