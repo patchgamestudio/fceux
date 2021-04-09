@@ -135,7 +135,6 @@ static int DIPS=0;
 int cidisabled=0;
 int allowUDLR=0;
 
-//const char buttons[] = { 'a', 'b', 's', 'S', '^', 'v', '<', '>' };
 const char buttons[] = "absS^v<>";
 
 #define MK(x)   {{BUTTC_KEYBOARD},{0},{MKK(x)},1}
@@ -339,10 +338,7 @@ void UpdateGamepad(bool snes)
 		bool has_input = false;
 		for (int x = 0; x < 8; x++) {
 			//cout << "\"" << gamepad_state[g][x] << "\"";
-			if (gamepad_state[g][x] != ' ') has_input = true;
-		}
-		if (has_input) {
-			keylog->log_info(gamepad_state[g]);
+			keylog->log_info(gamepad_state[g]);			
 		}
 	}
 
